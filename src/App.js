@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import React, { useState } from "react";
+import Header from "./Components/Header";
+import Navbar from "./Components/Navbar";
+import Data from "./Components/Data";
 
-function App() {
+const App = () => {
+  const [checkedItems, setCheckedItems] = useState({});
+  const handleChange = (event) => {
+    setCheckedItems({
+      ...checkedItems,
+      [event.target.name]: event.target.checked,
+    });
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header />
+
+      <div className="container">
+        <div className="left-panel">
+          <Navbar handleChange={handleChange} checkedItems={checkedItems} />
+        </div>
+        <div className="right-panel">
+          <Data checkedItems={checkedItems} />
+        </div>
+      </div>
+    </>
   );
-}
+};
 
 export default App;
